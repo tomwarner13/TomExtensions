@@ -14,7 +14,10 @@ namespace TomExtensions.Collections
       public static bool None<T>(this IEnumerable<T> self, Predicate<T> predicate) => 
         !self.Any(predicate);
 
-      public static bool Any<T>(this IEnumerable<T> self, Predicate<T> predicate) =>
+      public static bool None<T>(this IEnumerable<T> self, Func<T, bool> func) =>
+        !self.Any(new Predicate<T>(func));
+
+    public static bool Any<T>(this IEnumerable<T> self, Predicate<T> predicate) =>
         self.Any((Func<T, bool>)(e => predicate(e)));
 
       public static IEnumerable<int> Range(int count) => 
